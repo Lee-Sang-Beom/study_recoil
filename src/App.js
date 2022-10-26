@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { textState, textSeletor } from "./store";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 function App() {
+  const [text, setText] = useRecoilState(textState);
+  const { isText, textLength } = useRecoilValue(textSeletor);
+
+  const onChange = (e) => {
+    const value = e.target.value;
+    setText(value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h3>Text : {text}</h3>
+      <h5>
+        길이 :
+        {isText ? (
+          <span>{textLength}</span>
+        ) : (
+          <span> 텍스트가 입력되지 않았습니다. </span>
+        )}
+      </h5>
+      <input
+        type="text"
+        value={text}
+        onChange={onChange}
+        placeholder="Input"
+      ></input>
     </div>
   );
 }
