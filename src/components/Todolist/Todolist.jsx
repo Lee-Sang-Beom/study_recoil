@@ -9,7 +9,8 @@ function TodoItem({ todo }) {
 
   return (
     <div>
-      <input value={todo.text} onChange={onChange} />
+      <p>{todo.text}</p>
+      {/* <input value={todo.text} onChange={onChange} /> */}
     </div>
   );
 }

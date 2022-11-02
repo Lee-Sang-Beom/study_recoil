@@ -84,7 +84,7 @@ Project - Study Recoil
     import { useRecoilState } from 'recoil'; // atom값을 다루기 위한 hook을 import
 
     function App() {
-    const [text, setText] = useRecoilState(textState); // 컴포넌트가 extState  atom을 읽고 쓰게 하기 위해 useRecoilState 사용
+    const [text, setText] = useRecoilState(textState); // 컴포넌트가 textState라는 atom을 읽고 쓰게 하기 위해 useRecoilState 사용
 
     const onChange = (e) => {
         const value = e.target.value;
