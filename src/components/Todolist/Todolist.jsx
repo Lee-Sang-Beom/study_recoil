@@ -1,23 +1,39 @@
 import { textListAtom, textAtom } from "../../store";
 import { useRecoilState } from "recoil";
+import { useState } from "react";
 
 // todoItem : todoList에서 입력한 내용을 출력해줌
 function TodoItem({ todo }) {
+  const [isEdit, setIsEdit] = useState(false);
+  const [textList, setTextList] = useRecoilState(textListAtom);
+  const textListidx = textList.findIndex((text) => text.id === todo.id);
+
   const onChange = (e) => {
-    // const { value } = e.target;
+    const { value } = e.target;
+
+    // 수정 완료 시, edit mode가 종료되도록 함
+    setIsEdit(false);
+  };
+
+  // 수정 버튼 click
+  const handleEditMode = () => {
+    setIsEdit(prev => !prev);
   };
 
   return (
     <div>
-      <p>{todo.text}</p>
-      {/* <input value={todo.text} onChange={onChange} /> */}
+      {!isEdit && (<li>
+        <span>{todo.text}</span>
+        <button onClick={handleEditMode}>수정</button>
+        <button>삭제</button>
+      </li>)}
+      {isEdit && <input value={todo.text} onChange={onChange} />}
     </div>
   );
 }
 
 // todoList : todoItem입력과 sumbit 버튼 제공
 export default function Todolist() {
-
   // useRecoilState : store/index.js에 선언한 atom 접근 및 사용
   const [textList, setTextList] = useRecoilState(textListAtom);
   const [text, setText] = useRecoilState(textAtom);
@@ -48,7 +64,9 @@ export default function Todolist() {
 
       {/* todoList 배열 길이만큼 출력 */}
       {textList.map((todo) => (
-        <TodoItem todo={todo} />
+        <ul key={todo.id}>
+          <TodoItem todo={todo} />
+        </ul>
       ))}
     </div>
   );
