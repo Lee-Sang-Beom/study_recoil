@@ -1,6 +1,7 @@
 import { textListAtom, textAtom } from "../../store";
 import { useRecoilState } from "recoil";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import useOnClickOutside from "../../hook/useOnClickOutside.js";
 
 // todoItem : todoList에서 입력한 내용을 출력해줌
 function TodoItem({ todo }) {
@@ -8,6 +9,10 @@ function TodoItem({ todo }) {
   const [textList, setTextList] = useRecoilState(textListAtom);
   const textListidx = textList.findIndex((text) => text.id === todo.id);
 
+  // notify를 위한 input에서 focus 벗어남 발생 시, 자동으로 edit mode 종료
+  const inputRef = useRef(false);
+  useOnClickOutside(inputRef, () => setIsEdit(false));
+  
   const onChange = (e) => {
     const { value } = e.target;
 
@@ -17,17 +22,17 @@ function TodoItem({ todo }) {
 
   // 수정 버튼 click
   const handleEditMode = () => {
-    setIsEdit(prev => !prev);
+    setIsEdit(true);
   };
 
   return (
-    <div>
-      {!isEdit && (<li>
+    <div ref={inputRef}>
+      {!isEdit && (<li style={{ margin:"0.5rem 1rem"}}>
         <span>{todo.text}</span>
         <button onClick={handleEditMode}>수정</button>
         <button>삭제</button>
       </li>)}
-      {isEdit && <input value={todo.text} onChange={onChange} />}
+      {isEdit && <input ref={inputRef} value={todo.text} onChange={onChange} />}
     </div>
   );
 }
