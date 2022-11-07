@@ -28,16 +28,18 @@ export default function Todolist() {
     <div className="list_wrap">
       <h1>TodoList with Recoil</h1>
       <form className="list_form" onSubmit={onSubmit}>
-        <input value={text} onChange={onChange} />
+        <input value={text} onChange={onChange} required />
         <button type="submit">Submit</button>
       </form>
 
-      {/* todoList 배열 길이만큼 출력 */}
-      {textList.map((todo) => (
-        <ul key={todo.id}>
-          <TodoItem todo={todo} />
-        </ul>
-      ))}
+      <div className="listItem_wrap">
+        {/* todoList 배열 길이만큼 출력 */}
+        {textList.map((todo) => (
+          <ul className="listItem_ul" key={todo.id}>
+            <TodoItem todo={todo} />
+          </ul>
+        ))}
+      </div>
     </div>
   );
 }

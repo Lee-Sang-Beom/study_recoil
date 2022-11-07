@@ -62,24 +62,28 @@ export default function TodoItem({ todo }) {
 
   return (
     // 해당 div 영역에서 focus 벗어나면 이벤트발생하도록 ref={ref} 지정
-    <div ref={ref}>
+    <div className = "listItem_wrap_li" ref={ref}>
       {!isEdit && (
-        <li style={{ margin: "0.5rem 1rem" }}>
+        <li className = "listItem_li">
           <span>{todo.text}</span>
-          <button onClick={handleEditMode}>수정</button>
-          <button onClick={onhandleDelete}>삭제</button>
+          <div className = "btn_wrap">
+            <button onClick={handleEditMode}>수정</button>
+            <button onClick={onhandleDelete}>삭제</button>
+          </div>
+          
         </li>
       )}
 
       {/* input 자동 focus를 위한 inputRef 지정 */}
       {isEdit && (
         <>
-          <form onSubmit={onSubmit}>
+          <form className="listItem_form" onSubmit={onSubmit}>
             <input ref={inputRef} value={todo.text} onChange={onChange} />
             <button>수정 완료</button>
           </form>
         </>
       )}
+
     </div>
   );
 }
