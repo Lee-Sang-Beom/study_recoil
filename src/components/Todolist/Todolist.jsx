@@ -3,11 +3,11 @@ import { useRecoilState } from "recoil";
 import TodoItem from "./TodoItem";
 
 export default function Todolist() {
-
   // useRecoilState : store/index.js에 선언한 atom 접근 및 사용
   const [textList, setTextList] = useRecoilState(textListAtom);
   const [text, setText] = useRecoilState(textAtom);
 
+  // 새로운 todoItem 작성을 위한 input event 처리
   const onChange = (e) => {
     const { value } = e.target;
     setText(value);
@@ -25,9 +25,9 @@ export default function Todolist() {
   };
 
   return (
-    <div>
-      <h3>TodoList</h3>
-      <form onSubmit={onSubmit}>
+    <div className="list_wrap">
+      <h1>TodoList with Recoil</h1>
+      <form className="list_form" onSubmit={onSubmit}>
         <input value={text} onChange={onChange} />
         <button type="submit">Submit</button>
       </form>

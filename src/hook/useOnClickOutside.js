@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import {  useEffect } from "react";
 // // Usage
 // function App() {
 //   // Create a ref that we add to the element for which we want to detect outside clicks

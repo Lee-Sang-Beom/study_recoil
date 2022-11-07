@@ -1,11 +1,10 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
 // todoList가 담길 배열
 export const textListAtom = atom({
   key: "textListAtom", // unique ID
   default: [
-    {id: 0, text:'recoil 배우기'},
-    {id: 1, text:'recoil 정리하기'},
+    
   ], // default value
 });
 

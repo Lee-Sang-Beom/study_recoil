@@ -8,7 +8,6 @@ import { useEffect } from "react";
 export default function TodoItem({ todo }) {
   const [isEdit, setIsEdit] = useState(false);
   const [textList, setTextList] = useRecoilState(textListAtom);
-  const textListidx = textList.findIndex((text) => text.id === todo.id);
 
   // notify를 위한 input에서 focus 벗어남 발생 시, 자동으로 edit mode 종료
   const ref = useRef(false);
