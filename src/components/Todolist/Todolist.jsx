@@ -15,18 +15,6 @@ function TodoItem({ todo }) {
   const inputRef = useRef(null);
   useOnClickOutside(ref, () => setIsEdit(false));
 
-  const onChange = (e) => {
-    const { value } = e.target;
-
-    // 수정 완료 시, edit mode가 종료되도록 함
-    setIsEdit(false);
-  };
-
-  // 수정 버튼 click
-  const handleEditMode = () => {
-    setIsEdit(true);
-  };
-
   useEffect(() => {
     if (isEdit) {
       // 수정버튼 click 시, 자동으로 focus생성
@@ -35,16 +23,40 @@ function TodoItem({ todo }) {
     }
   }, [isEdit]);
 
+  // edit mode : 내용 변경이 이루어짐
+  const onChange = (e) => {
+    const { value } = e.target;
+
+    // 수정 완료 시, edit mode가 종료되도록 함
+    setIsEdit(false);
+  };
+
+  // 수정 버튼을 클릭하여 Edit Mode로 변경하는 로직
+  const handleEditMode = () => {
+    setIsEdit(true);
+  };
+
+  const handleDeleteMode = () => {
+    const newTextList = textList.filter((text)=>text.id!==todo.id);
+    setTextList(newTextList);
+  }
+
+
+
+
+
   return (
-    // 해당 영역에서 focus 벗어나면 이벤트발생하도록 ref={ref} 지정
+    // 해당 div 영역에서 focus 벗어나면 이벤트발생하도록 ref={ref} 지정
     <div ref={ref}>
       {!isEdit && (
         <li style={{ margin: "0.5rem 1rem" }}>
           <span>{todo.text}</span>
           <button onClick={handleEditMode}>수정</button>
-          <button>삭제</button>
+          <button onClick={handleDeleteMode}>삭제</button>
         </li>
       )}
+
+      {/* input 자동 focus를 위한 inputRef 지정 */}
       {isEdit && <input ref={inputRef} value={todo.text} onChange={onChange} />}
     </div>
   );
@@ -52,6 +64,7 @@ function TodoItem({ todo }) {
 
 // todoList : todoItem입력과 sumbit 버튼 제공
 export default function Todolist() {
+
   // useRecoilState : store/index.js에 선언한 atom 접근 및 사용
   const [textList, setTextList] = useRecoilState(textListAtom);
   const [text, setText] = useRecoilState(textAtom);
