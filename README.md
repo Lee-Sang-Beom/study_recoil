@@ -23,6 +23,51 @@ Project - Study Recoil
     npm install recoil
     ```
 
+3. axios 설치하기
+    ```
+    npm install axios
+    ```
+
+4. json-server 설치하기
+    ```
+    npm install json-server
+    ```
+
+    - src/db.json 생성 후, 초기설정
+    ```
+    {
+        "todos":[
+            {
+                "id":0,
+                "text":"learn recoil",
+                "completed":false
+            },
+            {
+                "id":1,
+                "text":"learn recoil2",
+                "completed":false
+            }
+        ]
+    }
+    ```
+
+    - package.json 명령어 설정
+    ```
+    {
+        "todos":[
+            {
+                "id":0,
+                "text":"learn recoil",
+                "completed":false
+            },
+            {
+                "id":1,
+                "text":"learn recoil2",
+                "completed":false
+            }
+        ]
+    }
+    ```
 ****
 
 ### **3. Recoil이란?**
