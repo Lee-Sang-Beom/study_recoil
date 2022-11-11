@@ -1,11 +1,12 @@
 import { atom } from "recoil";
 
+
 // todoList가 담길 배열
 export const textListAtom = atom({
   key: "textListAtom", // unique ID
   default: [
     
-  ], // default value
+  ]// default value
 });
 
 // todoList의 각 내용이 담김

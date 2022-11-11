@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { useRef, useState } from "react";
 import useOnClickOutside from "../../hook/useOnClickOutside.js";
 import { useEffect } from "react";
+import axios from "axios";
 
 // todoItem : todoList에서 입력한 내용을 출력해줌
 export default function TodoItem({ todo }) {
@@ -14,12 +15,26 @@ export default function TodoItem({ todo }) {
   const inputRef = useRef(null);
   useOnClickOutside(ref, () => setIsEdit(false));
 
+  // json-server get
+  async function fetch(){
+    const res = await axios.get("http://localhost:3001/todos");
+    console.log(res.data);
+  }
+
+  // json-server delete
+  async function deleteServerData(id){
+    await axios.delete(`http://localhost:3001/todos/${id}`);
+  }
+  
   // 수정버튼 click 시, 자동으로 focus생성
   // inputRef의 태그가 아직 만들어지지 않았는데, 접근할 때를 유의
   useEffect(() => {
     if (isEdit) {
       inputRef ? inputRef.current.focus() : alert("inputRef is null!");
     }
+
+    // json-server 데이터 조회 테스트
+    fetch();
   }, [isEdit]);
 
   // 삭제버튼 클릭 시 수행
@@ -29,7 +44,11 @@ export default function TodoItem({ todo }) {
     const newTextList = tempTextList.map((textObj) => {
       return { ...textObj, id: count++ };
     });
+
     setTextList(newTextList);
+
+    // json-server 데이터 삭제 테스트
+    deleteServerData(todo.id);
   };
 
   // 수정 버튼을 클릭하여 Edit Mode로 변경하는 로직 수행
