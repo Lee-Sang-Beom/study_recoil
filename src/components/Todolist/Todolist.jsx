@@ -1,13 +1,14 @@
-import { textListAtom, textAtom } from "../../store";
+import { textListAtom, textAtom, countAtom } from "../../store";
 import { useRecoilState } from "recoil";
 import TodoItem from "./TodoItem";
 import axios from "axios";
-import { useEffect } from "react";
 
 export default function Todolist() {
+
   // useRecoilState : store/index.js에 선언한 atom 접근 및 사용
   const [textList, setTextList] = useRecoilState(textListAtom);
   const [text, setText] = useRecoilState(textAtom);
+  const [id, setId] = useRecoilState(countAtom);
 
   // json-server post
   async function postServerData(newText) {
@@ -27,12 +28,13 @@ export default function Todolist() {
     e.preventDefault();
 
     const newText = {
-      id: textList.length ? textList.length + 1 : 0,
+      id: id,
       text,
     };
-
+ 
     setTextList((prev) => [...prev, newText]);
     postServerData(newText);
+    setId((prev)=>prev+1);
   };
 
   return (

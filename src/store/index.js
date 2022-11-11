@@ -5,7 +5,7 @@ import { atom } from "recoil";
 export const textListAtom = atom({
   key: "textListAtom", // unique ID
   default: [
-    
+
   ]// default value
 });
 
@@ -13,4 +13,10 @@ export const textListAtom = atom({
 export const textAtom = atom({
   key: "textAtom", // unique ID
   default: "", // default value
+});
+
+// todoList의 각 내용이 담김
+export const countAtom = atom({
+  key: "idCount", // unique ID
+  default: 1, // default value
 });

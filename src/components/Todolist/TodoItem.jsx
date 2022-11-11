@@ -48,14 +48,11 @@ export default function TodoItem({ todo }) {
     // json-server 데이터 삭제 테스트
     deleteServerData(todo.id);
 
-    let count = 1;
     const newTextList = tempTextList.map((textObj) => {
-      return { ...textObj, id: count++ };
+      return { ...textObj };
     });
 
     setTextList(newTextList);
-
-    
   };
 
   // 수정 버튼을 클릭하여 Edit Mode로 변경하는 로직 수행
