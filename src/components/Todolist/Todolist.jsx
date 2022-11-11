@@ -10,10 +10,11 @@ export default function Todolist() {
   const [text, setText] = useRecoilState(textAtom);
 
   // json-server post
-  async function deleteServerData(newText) {
+  async function postServerData(newText) {
     await axios
       .post("http://localhost:3001/todos", newText)
-      .then((res) => console.log(res)).catch((err) => console.log(err));
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   }
 
   // 새로운 todoItem 작성을 위한 input event 처리
@@ -26,12 +27,12 @@ export default function Todolist() {
     e.preventDefault();
 
     const newText = {
-      id: textList.length ? textList.length : 0,
+      id: textList.length ? textList.length + 1 : 0,
       text,
     };
 
     setTextList((prev) => [...prev, newText]);
-    deleteServerData(newText);
+    postServerData(newText);
   };
 
   return (

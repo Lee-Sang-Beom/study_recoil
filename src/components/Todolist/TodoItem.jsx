@@ -16,14 +16,18 @@ export default function TodoItem({ todo }) {
   useOnClickOutside(ref, () => setIsEdit(false));
 
   // json-server get
-  async function fetch(){
-    const res = await axios.get("http://localhost:3001/todos");
-    console.log(res.data);
+  async function fetch() {
+    await axios
+      .get("http://localhost:3001/todos")
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   }
 
   // json-server delete
   async function deleteServerData(id){
-    await axios.delete(`http://localhost:3001/todos/${id}`);
+    await axios.delete(`http://localhost:3001/todos/${id}`)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
   }
   
   // 수정버튼 click 시, 자동으로 focus생성
@@ -40,15 +44,18 @@ export default function TodoItem({ todo }) {
   // 삭제버튼 클릭 시 수행
   const onhandleDelete = () => {
     const tempTextList = textList.filter((text) => text.id !== todo.id);
-    let count = 0;
+
+    // json-server 데이터 삭제 테스트
+    deleteServerData(todo.id);
+
+    let count = 1;
     const newTextList = tempTextList.map((textObj) => {
       return { ...textObj, id: count++ };
     });
 
     setTextList(newTextList);
 
-    // json-server 데이터 삭제 테스트
-    deleteServerData(todo.id);
+    
   };
 
   // 수정 버튼을 클릭하여 Edit Mode로 변경하는 로직 수행
